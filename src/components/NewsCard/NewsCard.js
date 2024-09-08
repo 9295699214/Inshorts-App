@@ -16,7 +16,7 @@ const NewsCard = ({newsItem}) => {
                 <span className='title'>{newsItem.title}</span>
                 <br/>{" "}
                 <span className='author'>
-                    <a href={newsItem.url} target='_blank'>
+                    <a href={newsItem.url} rel="noreferrer" target='_blank'>
                         <b>short</b>
                     </a>
                    <span className='muted'>
@@ -32,7 +32,7 @@ const NewsCard = ({newsItem}) => {
                         {newsItem.description}
                     </div>
                     <span className='readmore'>read more at {" "}
-                    <a href={newsItem.url} target='_blank'>
+                    <a href={newsItem.url} rel="noreferrer" target='_blank'>
                         <b>{newsItem.source.name}</b>
                     </a>
                     </span>
