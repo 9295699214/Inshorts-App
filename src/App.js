@@ -14,6 +14,7 @@ const [newsResults, setNewsResult] = useState("");
 const [loadMore, setLoadMore] = useState(20);
 
 useEffect(() => {
+  //eslint-disable-next-line
   const newApi = async () => {
     try {
       const proxyUrl = "https://cors-anywhere.herokuapp.com/";
