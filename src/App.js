@@ -10,31 +10,30 @@ function App() {
 
 const [category, setCategory] = useState("business");
 const [newsArray, setNewsArray] = useState("");
-const [newResults, setNewsResult] = useState("");
+const [newsResults, setNewsResult] = useState("");
+const [loadMore, setLoadMore] = useState(20);
 
-useEffect(()=>{
+useEffect(() => {
+  const newApi = async () => {
+    try {
+      const news = await axios.get(
+        `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&pageSize=${loadMore}`
+      );
+      setNewsArray(news.data.articles);
+      setNewsResult(news.data.totalResults);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   newApi();
-},[category,newResults])
+}, [category,newsResults,loadMore]);
 
-
-const newApi = async() =>{
-
-  try{
-    const news = await axios.get(
-      `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}`
-    );
-     setNewsArray(news.data.articles);
-     setNewsResult(news.data.totalResults);
-  }catch(error){
-    console.log(error)
-  }
-
-}
 
   return (
     <div className="App">
      <Navbar setCategory={setCategory}/>
-     <NewsContent/>
+     <NewsContent newsArray={newsArray} newsResults={newsResults} loadMore = {loadMore} setLoadMore={setLoadMore}/>
      <Footer/>
     </div>
   );
