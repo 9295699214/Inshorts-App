@@ -2,11 +2,11 @@ import React from 'react';
 import './Navbar.css';
 import Hamburger from './HamburgerDrawer';
 
-const Navbar = () => {
+const Navbar = ({setCategory}) => {
   return (
     <div className='nav'>
       <div className='icon'>
-        <Hamburger/>
+        <Hamburger setCategory={setCategory}/>
       </div>
       <img 
       style={{cursor:"pointer"}}

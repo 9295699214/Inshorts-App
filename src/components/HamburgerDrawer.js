@@ -5,16 +5,13 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ThemeProvider, createTheme } from '@mui/material';
+import categories from '../data/category';
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer({ setCategory }) {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -25,7 +22,7 @@ export default function SwipeableTemporaryDrawer() {
     () =>
       createTheme({
         palette: {
-          mode: prefersDarkMode ? "dark" : "light", // Use "mode" instead of "type"
+          mode: prefersDarkMode ? "dark" : "light",
         },
       }),
     [prefersDarkMode]
@@ -45,33 +42,26 @@ export default function SwipeableTemporaryDrawer() {
 
   const list = () => (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 200, paddingLeft: 2, paddingRight: 2 }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem>
+          Categories
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+        {categories.map((text) => (
+          <ListItem 
+            button 
+            sx={{ height: 40, borderRadius: 1 }} 
+            onClick={() => setCategory(text)} 
+            key={text}
+          >
+            <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
@@ -79,12 +69,14 @@ export default function SwipeableTemporaryDrawer() {
   );
 
   return (
-    <ThemeProvider theme={theme}> {/* Wrapping entire component */}
+    <ThemeProvider theme={theme}>
       <div>
-        <Button onClick={toggleDrawer(true)}><MenuIcon /></Button>
+        <Button onClick={toggleDrawer(true)}>
+          <MenuIcon />
+        </Button>
         <SwipeableDrawer
-          anchor={"left"}
-          open={state["left"]}
+          anchor="left"
+          open={state.left}
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
         >
